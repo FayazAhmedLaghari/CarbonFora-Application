@@ -1,3 +1,4 @@
+// ignore_for_file: use_key_in_widget_constructors
 import 'package:carbonfora_application/Screens/SplashScreen2.dart';
 import 'package:flutter/material.dart';
 import 'package:carbonfora_application/Widegts/AppColors.dart';

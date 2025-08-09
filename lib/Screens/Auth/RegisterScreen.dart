@@ -1,31 +1,27 @@
-import 'package:carbonfora_application/Screens/Auth/ForgotPasswordScreen.dart';
-import 'package:carbonfora_application/Screens/Auth/RegisterScreen.dart';
-import 'package:carbonfora_application/Screens/HomeScreen.dart';
+// RegisterScreen.dart
+import 'package:carbonfora_application/Screens/Auth/LoginScreen.dart';
+import 'package:carbonfora_application/Widegts/AppColors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import '../../Widegts/gradient_button.dart';
 
-class LoginScreen extends StatefulWidget {
+class RegisterScreen extends StatefulWidget {
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
 bool _rememberMe = false;
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     final gradientColors = [Color(0xFF1D8AA2), Color(0xFF402BB5)];
-
     return Scaffold(
-      // backgroundColor: Colors.grey[100],
       body: SafeArea(
         child: Column(
           children: [
-            // Top Gradient Header
             Stack(
               children: [
-                // Gradient background with title and description
+                // Gradient Header Container
                 Container(
                   width: double.infinity,
                   height: 180,
@@ -43,9 +39,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const [
-                      SizedBox(height: 40), // To avoid overlapping the arrow
+                      SizedBox(height: 40), // space for the arrow icon
                       Text(
-                        'Login',
+                        'Sign Up',
                         style: TextStyle(
                           fontSize: 28,
                           fontWeight: FontWeight.bold,
@@ -68,7 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
 
-                // Back arrow icon inside gradient top-left
+                // Back Arrow Icon
                 Positioned(
                   top: 16,
                   left: 16,
@@ -80,8 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       width: 40,
                       height: 40,
                       decoration: BoxDecoration(
-                        color:
-                            const Color(0x1CFFFFFF), // White with 11% opacity
+                        color: const Color(0x1CFFFFFF), // 11% white opacity
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: const Icon(
@@ -94,8 +89,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ],
             ),
-
-            // Card Form Area
             Expanded(
               child: SingleChildScrollView(
                 padding:
@@ -106,85 +99,59 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
+                      _buildTextField('First Name'),
+                      SizedBox(height: 20),
+                      _buildTextField('Last Name'),
+                      SizedBox(height: 20),
                       _buildTextField('Email'),
                       SizedBox(height: 20),
                       _buildTextField('Password', obscure: true),
+                      SizedBox(height: 20),
+                      _buildTextField('Confirm Password', obscure: true),
                       SizedBox(height: 10),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Row(
-                            children: [
-                              Checkbox(
-                                value: _rememberMe,
-                                onChanged: (bool? value) {
-                                  setState(() {
-                                    _rememberMe = value ?? false;
-                                  });
-                                },
-                              ),
-                              const Text('Remember me'),
-                            ],
+                          Checkbox(
+                            value: _rememberMe,
+                            onChanged: (bool? value) {
+                              setState(() {
+                                _rememberMe = value ?? false;
+                              });
+                            },
                           ),
-                          TextButton(
-                            onPressed: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        ForgotPasswordScreen())),
-                            child: Text(
-                              'Forgot password?',
-                              style: TextStyle(color: Color(0xFF1D8AA2)),
-                            ),
-                          ),
+                          const Text('Remember me'),
                         ],
                       ),
                       SizedBox(height: 10),
                       GradientButton(
-                        text: 'Login',
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => HomeScreen()));
-                        },
+                        text: 'Sign Up',
+                        onPressed: () {},
                       ),
                       SizedBox(height: 25),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          _buildSocialIcon('assets/google.svg'),
-                          SizedBox(width: 16),
-                          _buildSocialIcon('assets/apple.svg'),
-                          SizedBox(width: 16),
-                          _buildSocialIcon('assets/facebook.svg'),
-                        ],
-                      ),
-                      SizedBox(height: 40),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text("Don’t have an account? "),
+                          Text("Already have an account? "),
                           GestureDetector(
                             onTap: () => Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => RegisterScreen())),
+                                    builder: (context) => LoginScreen())),
                             child: Text(
-                              'Register',
+                              'Login',
                               style: TextStyle(
-                                color: Color(0xFF4834AA), // Updated color
+                                color: Color(0xFF4834AA),
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
                         ],
-                      ),
+                      )
                     ],
                   ),
                 ),
               ),
-            ),
+            )
           ],
         ),
       ),
@@ -197,7 +164,7 @@ class _LoginScreenState extends State<LoginScreen> {
       decoration: InputDecoration(
         labelText: label,
         filled: true,
-        fillColor: const Color(0xFFF1F4FF), // TextField background color
+        fillColor: const Color(0xFFF1F4FF),
         labelStyle: TextStyle(color: Colors.grey[700]),
         contentPadding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
         border: OutlineInputBorder(
@@ -211,21 +178,6 @@ class _LoginScreenState extends State<LoginScreen> {
           borderSide: BorderSide(color: Color(0xFF1D8AA2)),
           borderRadius: BorderRadius.circular(12),
         ),
-      ),
-    );
-  }
-
-  Widget _buildSocialIcon(String assetPath) {
-    return Container(
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey.shade300),
-        shape: BoxShape.circle,
-      ),
-      child: SvgPicture.asset(
-        assetPath,
-        height: 24,
-        width: 24,
       ),
     );
   }

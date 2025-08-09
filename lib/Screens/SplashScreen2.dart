@@ -1,3 +1,5 @@
+import 'package:carbonfora_application/Screens/Auth/LoginScreen.dart';
+import 'package:carbonfora_application/Screens/Auth/RegisterScreen.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen2 extends StatelessWidget {
@@ -60,7 +62,10 @@ class SplashScreen2 extends StatelessWidget {
                   ),
                   child: ElevatedButton(
                     onPressed: () {
-                      print('Registration button pressed');
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => RegisterScreen()));
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.transparent,
@@ -91,7 +96,10 @@ class SplashScreen2 extends StatelessWidget {
                   height: 50.0,
                   child: OutlinedButton(
                     onPressed: () {
-                      print('Sign In button pressed');
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => LoginScreen()));
                     },
                     style: OutlinedButton.styleFrom(
                       padding: EdgeInsets.symmetric(vertical: 12.0),
